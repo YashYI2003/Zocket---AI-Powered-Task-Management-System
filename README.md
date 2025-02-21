@@ -31,19 +31,31 @@ Zocket is an AI-powered task management system that enables efficient task creat
 ```
 /                     # Root directory
 ├── app/              # Core application logic
-├── components/       # Reusable React components
-├── hooks/            # Custom React hooks
-├── lib/              # Utility functions and libraries
-├── node_modules/     # Installed dependencies
-├── out/              # Static export (if applicable)
-├── public/           # Static assets (images, icons, etc.)
-├── styles/           # Global and component-specific styles
-├── pages/            # Next.js pages and API routes
-├── next.config.js    # Next.js configuration
-├── tailwind.config.ts# Tailwind CSS configuration
-├── package.json      # Project dependencies and scripts
-├── tsconfig.json     # TypeScript configuration
-├── .env.example      # Environment variables example file
+├── backend/          # NEW: Backend (Golang API)
+│   ├── main.go       # Entry point for the backend server
+│   ├── routes/       # API route handlers
+│   ├── models/       # Database models
+│   ├── controllers/  # Business logic for requests
+│   ├── database/     # DB connection setup
+│   ├── middleware/   # Authentication & validation middleware
+│   ├── services/     # AI integration & business logic
+│   ├── websocket/    # Real-time updates using WebSockets
+│   ├── go.mod        # Go module dependencies
+│   ├── go.sum        # Dependency checksums
+├── components/       
+├── hooks/            
+├── lib/              
+├── node_modules/     
+├── out/              
+├── public/           
+├── styles/           
+├── pages/            
+├── next.config.js    
+├── tailwind.config.ts
+├── package.json      
+├── tsconfig.json     
+├── .env.example      
+
 ```
 
 ## Setup & Installation
