@@ -213,7 +213,7 @@ export default function DashboardPage() {
             </DialogContent>
           </Dialog>
         </div>
-
+        <div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -222,26 +222,13 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{tasks.length}</div>
-              <p className="text-xs text-muted-foreground">
-                +{tasks.length - 10} from last week
+              <p className="text-xs text-muted-foreground text-left" >
+                {tasks.filter((t) => t.status === 'Completed').length }/{tasks.length } Completed 
               </p>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">In Progress</CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                {tasks.filter((t) => t.status === 'In Progress').length}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Active tasks
-              </p>
-            </CardContent>
-          </Card>
+          
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -257,8 +244,35 @@ export default function DashboardPage() {
               </p>
             </CardContent>
           </Card>
-
           <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">In Progress</CardTitle>
+              <Clock className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {tasks.filter((t) => t.status === 'In Progress').length}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Active tasks
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Pending</CardTitle>
+              <Clock className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {tasks.length-tasks.filter((t) => t.status === 'In Progress').length-tasks.filter((t) => t.status === 'Completed').length}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Active tasks
+              </p>
+            </CardContent>
+          </Card>
+          {/* <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">AI Suggestions</CardTitle>
               <svg
@@ -283,56 +297,12 @@ export default function DashboardPage() {
                 Available suggestions
               </p>
             </CardContent>
-          </Card>
+          </Card> */}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Tasks</CardTitle>
-              <CardDescription>Your latest tasks and their status</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {tasks.map((task, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center justify-between p-4 border rounded-lg"
-                  >
-                    <div className="flex-grow">
-                      <h3 className="font-medium">{task.title}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Due {task.dueDate}
-                      </p>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Select
-                        value={task.status}
-                        onValueChange={(value) => handleStatusChange(i, value)}
-                      >
-                        <SelectTrigger className="w-[140px]">
-                          <SelectValue placeholder="Select status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Pending">Pending</SelectItem>
-                          <SelectItem value="In Progress">In Progress</SelectItem>
-                          <SelectItem value="Completed">Completed</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDeleteTask(i)}
-                      >
-                        <Trash2 className="h-4 w-4 text-destructive" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
+          
           <Card>
             <CardHeader>
               <CardTitle>AI Task Suggestions</CardTitle>
@@ -379,6 +349,52 @@ export default function DashboardPage() {
               </div>
             </CardContent>
           </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Tasks</CardTitle>
+              <CardDescription>Your latest tasks and their status</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {tasks.map((task, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between p-4 border rounded-lg"
+                  >
+                    <div className="flex-grow">
+                      <h3 className="font-medium">{task.title}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Due {task.dueDate}
+                      </p>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Select
+                        value={task.status}
+                        onValueChange={(value) => handleStatusChange(i, value)}
+                      >
+                        <SelectTrigger className="w-[140px]">
+                          <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Pending">Pending</SelectItem>
+                          <SelectItem value="In Progress">In Progress</SelectItem>
+                          <SelectItem value="Completed">Completed</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleDeleteTask(i)}
+                      >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
         </div>
       </div>
     </div>

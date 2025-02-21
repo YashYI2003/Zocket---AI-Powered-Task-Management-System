@@ -33,7 +33,6 @@ export default function LoginPage() {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check if user is already authenticated
     const isAuth = localStorage.getItem('isAuthenticated');
     if (isAuth) {
       router.replace('/dashboard');
@@ -45,7 +44,6 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      // For demo purposes, check against stored credentials or use demo account
       const storedEmail = localStorage.getItem('demo_email');
       const storedPassword = localStorage.getItem('demo_password');
       
@@ -76,54 +74,65 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-secondary p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Welcome back</CardTitle>
-          <CardDescription>Sign in to your TaskAI account</CardDescription>
-        </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={isLoading}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={isLoading}
-              />
-              <p className="text-xs text-muted-foreground">
-                Password must contain at least 8 characters, including numbers, letters, and special characters
+      <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+        {/* Left Section - Branding */}
+        <div className="text-center md:text-left">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+            AI-Powered Task Management System
+          </h1>
+          <p className="text-xl text-muted-foreground">Created by Yash Hinge 21BCE0469</p>
+        </div>
+
+        {/* Right Section (Login) */}
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Welcome back</CardTitle>
+            <CardDescription>Sign in to your account</CardDescription>
+          </CardHeader>
+          <form onSubmit={handleSubmit}>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  disabled={isLoading}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Password must contain at least 8 characters, including numbers, letters, and special characters
+                </p>
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col space-y-4">
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Signing in..." : "Sign In"}
+              </Button>
+              <p className="text-sm text-muted-foreground text-center">
+                Don&apos;t have an account?{' '}
+                <Link href="/signup" className="text-primary hover:underline">
+                  Sign up
+                </Link>
               </p>
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Signing in..." : "Sign In"}
-            </Button>
-            <p className="text-sm text-muted-foreground text-center">
-  Don&apos;t have an account?{' '}
-  <Link href="/signup" className="text-primary hover:underline">
-    Sign up
-  </Link>
-</p>
-          </CardFooter>
-        </form>
-      </Card>
+            </CardFooter>
+          </form>
+        </Card>
+      </div>
     </div>
   );
 }
