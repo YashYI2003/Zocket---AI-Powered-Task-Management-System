@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Brain, CheckCircle, Layout, Users } from 'lucide-react';
 import Link from 'next/link';
 
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
